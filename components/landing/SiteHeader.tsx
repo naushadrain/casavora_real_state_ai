@@ -20,9 +20,9 @@ export function SiteHeader() {
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
         <a href="#top" className="flex items-center">
-          <img src="/logo.svg" alt="Casavora" className="h-9 w-auto" />
+          <img src="/newLogo.jpeg" alt="Casavora" className="h-14 w-auto" />
         </a>
         <nav className="hidden md:flex items-center gap-8 text-sm text-ink-soft">
           <a href="#familiar" className="hover:text-ink transition-colors">Problem</a>
