@@ -12,7 +12,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid md:grid-cols-[1fr_auto] gap-10 items-start">
           <div className="max-w-sm">
-            <img src="/logo.svg" alt="Casavora" className="h-8 w-auto" />
+            <img src="/newLogo.jpeg" alt="Casavora" className="h-12 w-auto" />
             <p className="mt-3 text-sm text-ink-soft">
               Simplifying Property Ownership
             </p>
