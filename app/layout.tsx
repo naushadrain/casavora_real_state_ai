@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   title: "Casavora — Simplifying Property Ownership",
   description:
     "Everything you need to manage your property in one place: documents, maintenance, warranties, tradies and reminders. Join founding members shaping Casavora from day zero.",
