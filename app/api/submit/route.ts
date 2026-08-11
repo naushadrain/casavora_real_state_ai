@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 
   if (typeof body.tool === "string" && body.tool) fields["Current Tool"] = body.tool;
   if (typeof body.stress === "number") fields["Stress Level"] = body.stress;
-  if (Array.isArray(body.tasks) && body.tasks.length) fields["Hardest Tasks"] = body.tasks;
+  if (Array.isArray(body.tasks) && body.tasks.length) fields["Hardest Tasks"] = body.tasks.join(", ");
   if (typeof body.pay === "string" && body.pay) fields["Would Pay"] = body.pay;
 
   try {

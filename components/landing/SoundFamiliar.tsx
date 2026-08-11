@@ -34,11 +34,16 @@ export function SoundFamiliar() {
   const [submitted, setSubmitted] = useState(false);
 
   const syncChecklist = () => {
-    const items = ITEMS.filter((_, i) => checked.has(i));
+    const values = Object.fromEntries(ITEMS.map((item, i) => [item, checked.has(i) ? 1 : 0]));
+    let deviceId = localStorage.getItem("casavora_device_id");
+    if (!deviceId) {
+      deviceId = crypto.randomUUID();
+      localStorage.setItem("casavora_device_id", deviceId);
+    }
     return fetch("/api/checklist", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: recordId.current, items }),
+      body: JSON.stringify({ id: recordId.current, values, deviceId, deviceName: navigator.userAgent }),
     })
       .then((res) => res.json())
       .then((data) => {

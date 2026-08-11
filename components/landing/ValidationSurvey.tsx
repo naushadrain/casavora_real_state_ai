@@ -41,6 +41,11 @@ export function ValidationSurvey() {
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error ?? "Submission failed");
       setDone(true);
+      setTool("");
+      setStress(6);
+      setTasks([]);
+      setPay("");
+      setEmail("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
