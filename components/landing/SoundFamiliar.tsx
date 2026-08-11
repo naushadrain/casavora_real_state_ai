@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/toast";
 import { Reveal } from "./Reveal";
 
 const ITEMS = [
@@ -30,6 +31,7 @@ export function SoundFamiliar() {
   const recordId = useRef<string | null>(null);
   const debounce = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isFirstRender = useRef(true);
+  const isResetting = useRef(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -57,6 +59,10 @@ export function SoundFamiliar() {
       isFirstRender.current = false;
       return;
     }
+    if (isResetting.current) {
+      isResetting.current = false;
+      return;
+    }
     setSubmitted(false);
     if (debounce.current) clearTimeout(debounce.current);
     debounce.current = setTimeout(() => {
@@ -75,8 +81,21 @@ export function SoundFamiliar() {
     try {
       await syncChecklist();
       setSubmitted(true);
+      toast.add({
+        title: "Thanks — saved!",
+        description: "Your ticked items are already shaping what we build first.",
+        type: "success",
+      });
+      isResetting.current = true;
+      setChecked(new Set());
+      recordId.current = null;
     } catch {
       setSubmitted(false);
+      toast.add({
+        title: "Something went wrong",
+        description: "Your answers weren't saved. Please try again.",
+        type: "error",
+      });
     } finally {
       setSubmitting(false);
     }
