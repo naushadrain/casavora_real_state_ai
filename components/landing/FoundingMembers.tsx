@@ -69,7 +69,7 @@ export function FoundingMembers() {
                     <Button
                       type="submit"
                       disabled={submitting}
-                      className="h-auto w-full rounded-xl bg-accent px-4 py-3 font-semibold text-accent-foreground hover-lift disabled:opacity-50"
+                      className="h-auto w-full rounded-xl bg-accent px-4 py-3 font-semibold text-accent-foreground hover-lift hover:bg-accent hover:text-white disabled:opacity-50"
                     >
                       {submitting ? "Submitting…" : "Claim my spot"}
                     </Button>
