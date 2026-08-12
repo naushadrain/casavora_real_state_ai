@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "@/components/ui/toast";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-display",
   subsets: ["latin"],
 });
 
@@ -36,11 +36,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
+    <html lang="en" className="h-full antialiased">
+      <body className={`${inter.variable} ${plusJakartaSans.variable} min-h-full flex flex-col antialiased`}>
         <Toaster>{children}</Toaster>
       </body>
     </html>
