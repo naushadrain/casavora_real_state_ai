@@ -29,9 +29,9 @@ export function EverythingInOnePlace() {
             <h2 className="mt-4 text-4xl md:text-5xl font-bold">Dozens of problems<br />One Solution</h2>
           </div>
         </Reveal>
-        <Reveal delay={100}>
+        {/* <Reveal delay={100}>
           <img src={onePlaceImg} alt="Documents, bills and reminders converging into a single dashboard" loading="lazy" width={1024} height={768} className="mt-10 w-full max-w-2xl mx-auto" />
-        </Reveal>
+        </Reveal> */}
 
 
         <div className="mt-14 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
