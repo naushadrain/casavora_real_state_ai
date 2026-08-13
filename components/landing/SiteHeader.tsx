@@ -40,7 +40,7 @@ export function SiteHeader() {
             <a
               key={link.href}
               href={link.href}
-              className="relative py-1 font-medium text-ink-soft transition-all duration-300 ease-out hover:text-ink hover:text-[0.95rem] hover:font-semibold after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 after:w-0 after:bg-ink after:transition-all after:duration-300 after:ease-out hover:after:w-full"
+              className="relative py-1 text-ink-soft transition-colors duration-300 ease-out hover:text-ink after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 after:w-0 after:bg-ink after:transition-all after:duration-300 after:ease-out hover:after:w-full"
             >
               {link.label}
             </a>

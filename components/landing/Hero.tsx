@@ -41,14 +41,17 @@ export function Hero() {
             Stop juggling spreadsheets, emails, documents, tradespeople, inspections and reminders.
             One intelligent platform for every stage of property ownership.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-6">
             <Button render={<a href="#founding" />} nativeButton={false} className="h-auto rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover-lift">
               Join Founding Members
             </Button>
-            <Button render={<a href="#demo" />} nativeButton={false} variant="outline" className="h-auto gap-2 rounded-full border-border bg-surface px-6 py-3 text-sm font-semibold text-ink hover-lift">
+            <a
+              href="#demo"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-primary"
+            >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
               Watch Prototype
-            </Button>
+            </a>
           </div>
           <div className="mt-10 flex items-center gap-6 text-xs text-ink-soft">
             <div className="flex -space-x-2">

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "@/components/ui/toast";
 import { Reveal } from "./Reveal";
 
 const TOOLS = ["Google Drive", "Excel / Sheets", "Paper folders", "Nothing yet", "A property agency"];
@@ -41,6 +42,11 @@ export function ValidationSurvey() {
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error ?? "Submission failed");
       setDone(true);
+      toast.add({
+        title: "Thank you!",
+        description: "We successfully received your feedback.",
+        type: "success",
+      });
       setTool("");
       setStress(6);
       setTasks([]);
@@ -75,8 +81,7 @@ export function ValidationSurvey() {
               {done ? (
                 <div className="text-center py-10">
                   <div className="mx-auto w-14 h-14 rounded-full bg-accent grid place-items-center text-accent-foreground text-2xl">✓</div>
-                  <h3 className="mt-4 text-2xl font-bold text-ink">Thank you.</h3>
-                  <p className="mt-2 text-ink-soft">Your answers are already shaping what we build first.</p>
+                  <p className="mt-4 text-ink-soft">Your answers are already shaping what we build first.</p>
                 </div>
               ) : step === 0 ? (
                 <>
