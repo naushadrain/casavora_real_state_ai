@@ -82,8 +82,8 @@ export function SoundFamiliar() {
       await syncChecklist();
       setSubmitted(true);
       toast.add({
-        title: "Thanks — saved!",
-        description: "Your ticked items are already shaping what we build first.",
+        title: "Thank you!",
+        description: "We successfully received your feedback.",
         type: "success",
       });
       isResetting.current = true;
