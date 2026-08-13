@@ -45,13 +45,13 @@ export function Hero() {
             <Button render={<a href="#founding" />} nativeButton={false} className="h-auto rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover-lift">
               Join Founding Members
             </Button>
-            <p
-              
+            <a
+              href="#demo"
               className="group inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-primary"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
               Watch Prototype
-            </p>
+            </a>
           </div>
           <div className="mt-10 flex items-center gap-6 text-xs text-ink-soft">
             <div className="flex -space-x-2">
