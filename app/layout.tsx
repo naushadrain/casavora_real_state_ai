@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: "Casavora — Simplifying Property Ownership",
     description:
       "Everything you need to manage your property in one place: documents, maintenance, warranties, tradies and reminders.",
-    images: ["/og-image.png"],
+    images: ["/favicon.png"],
     type: "website",
   },
   twitter: {
