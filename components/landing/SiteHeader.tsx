@@ -30,14 +30,18 @@ export function SiteHeader() {
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-6 my-3 h-16 flex items-center justify-between">
         <a href="#top" className="flex items-center gap-2">
-          <img src="/logoNew.png" alt="Casavora" className="h-9 w-auto" />
+          <img src="/logoNew.png" alt="Casavora" className="h-14 w-auto" />
         </a>
 
         <nav className="hidden md:flex items-center gap-8 text-sm text-ink-soft">
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="hover:text-ink transition-colors">
+            <a
+              key={link.href}
+              href={link.href}
+              className="relative py-1 font-medium text-ink-soft transition-all duration-300 ease-out hover:text-ink hover:text-[0.95rem] hover:font-semibold after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 after:w-0 after:bg-ink after:transition-all after:duration-300 after:ease-out hover:after:w-full"
+            >
               {link.label}
             </a>
           ))}
