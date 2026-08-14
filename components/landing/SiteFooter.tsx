@@ -1,11 +1,63 @@
 "use client";
 
-import { useEmailSignup } from "@/hooks/use-email-signup";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+const MAILCHIMP_JSONP_URL =
+  "https://gmail.us17.list-manage.com/subscribe/post-json?u=56e60c8047e6c7041c587489e&id=1f32ef8b3c&f_id=008fc3e1f0";
+
+function subscribeToMailchimp(email: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const callbackName = `mcJsonp${Date.now()}`;
+    const script = document.createElement("script");
+
+    const cleanup = () => {
+      delete (window as unknown as Record<string, unknown>)[callbackName];
+      script.remove();
+    };
+
+    (window as unknown as Record<string, (data: { result: string; msg: string }) => void>)[callbackName] = (data) => {
+      cleanup();
+      if (data.result === "success") resolve();
+      else reject(new Error(data.msg || "Subscription failed"));
+    };
+
+    const params = new URLSearchParams({
+      EMAIL: email,
+      c: callbackName,
+      b_56e60c8047e6c7041c587489e_1f32ef8b3c: "",
+    });
+
+    script.src = `${MAILCHIMP_JSONP_URL}&${params.toString()}`;
+    script.onerror = () => {
+      cleanup();
+      reject(new Error("Something went wrong. Please try again."));
+    };
+    document.body.appendChild(script);
+  });
+}
+
 export function SiteFooter() {
-  const { email, setEmail, sent, submitting, error, submit } = useEmailSignup("Footer");
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || submitting) return;
+    setSubmitting(true);
+    setError("");
+    try {
+      await subscribeToMailchimp(email);
+      setSent(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <footer className="border-t border-border py-12">
@@ -26,7 +78,7 @@ export function SiteFooter() {
           <div className="w-full md:w-80">
             <div className="text-sm font-semibold text-ink">Get the early updates</div>
             {sent ? (
-              <div className="mt-2 text-sm text-accent-foreground">Thanks — you're on the list.</div>
+              <div className="mt-2 text-sm text-green-600">Thanks — you&apos;re on the list.</div>
             ) : (
               <form
                 onSubmit={submit}
