@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/toast";
+import { getDeviceId, getDeviceName } from "@/lib/device";
 import { Reveal } from "./Reveal";
 
 const TOOLS = ["Google Drive", "Excel / Sheets", "Paper folders", "Nothing yet", "A property agency"];
@@ -37,7 +38,16 @@ export function ValidationSurvey() {
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ source: "Survey", email, tool, stress, tasks, pay }),
+        body: JSON.stringify({
+          source: "Survey",
+          email,
+          tool,
+          stress,
+          tasks,
+          pay,
+          deviceId: getDeviceId(),
+          deviceName: getDeviceName(),
+        }),
       });
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error ?? "Submission failed");

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { getDeviceId, getDeviceName } from "@/lib/device";
 
-export function useEmailSignup(source: "Newsletter" | "Footer" | "Founding Members") {
+export function useEmailSignup(source: "Newsletter" | "Founding Members") {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -17,7 +18,7 @@ export function useEmailSignup(source: "Newsletter" | "Footer" | "Founding Membe
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ source, email }),
+        body: JSON.stringify({ source, email, deviceId: getDeviceId(), deviceName: getDeviceName() }),
       });
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error ?? "Submission failed");

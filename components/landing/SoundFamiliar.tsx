@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
+import { getDeviceId, getDeviceName } from "@/lib/device";
 import { Reveal } from "./Reveal";
 
 const ITEMS = [
@@ -37,15 +38,10 @@ export function SoundFamiliar() {
 
   const syncChecklist = () => {
     const values = Object.fromEntries(ITEMS.map((item, i) => [item, checked.has(i) ? 1 : 0]));
-    let deviceId = localStorage.getItem("casavora_device_id");
-    if (!deviceId) {
-      deviceId = crypto.randomUUID();
-      localStorage.setItem("casavora_device_id", deviceId);
-    }
     return fetch("/api/checklist", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: recordId.current, values, deviceId, deviceName: navigator.userAgent }),
+      body: JSON.stringify({ id: recordId.current, values, deviceId: getDeviceId(), deviceName: getDeviceName() }),
     })
       .then((res) => res.json())
       .then((data) => {

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { createAirtableRecord, updateAirtableRecord } from "@/lib/airtable";
+import { AIRTABLE_TABLES, createAirtableRecord, updateAirtableRecord } from "@/lib/airtable";
+import { getSubmissionMeta } from "@/lib/request-meta";
 
 // Maps each checklist item's UI label to its actual Airtable column name
 // (the Airtable table was built by hand with different wording/typos than the UI).
@@ -14,12 +15,6 @@ const ITEM_FIELD_MAP: Record<string, string> = {
   "Bills scattered across five apps": "Bills scattered across file apps",
 };
 
-function getClientIp(request: Request) {
-  const forwardedFor = request.headers.get("x-forwarded-for");
-  if (forwardedFor) return forwardedFor.split(",")[0].trim();
-  return request.headers.get("x-real-ip") ?? "unknown";
-}
-
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
 
@@ -32,20 +27,15 @@ export async function POST(request: Request) {
     itemFields[airtableField] = body.values[label] === 1 ? "1" : "0";
   }
 
-  const hiddenFields = {
-    "Device ID": typeof body.deviceId === "string" ? body.deviceId : "unknown",
-    "Device Name": typeof body.deviceName === "string" ? body.deviceName : "unknown",
-    IP: getClientIp(request),
-    DATE: new Date().toISOString(),
-  };
+  const hiddenFields = getSubmissionMeta(request, body);
 
   try {
     if (typeof body.id === "string" && body.id) {
-      await updateAirtableRecord(body.id, { ...itemFields, ...hiddenFields });
+      await updateAirtableRecord(AIRTABLE_TABLES.problem, body.id, { ...itemFields, ...hiddenFields });
       return NextResponse.json({ success: true, id: body.id });
     }
 
-    const record = await createAirtableRecord({
+    const record = await createAirtableRecord(AIRTABLE_TABLES.problem, {
       ...itemFields,
       ...hiddenFields,
     });
